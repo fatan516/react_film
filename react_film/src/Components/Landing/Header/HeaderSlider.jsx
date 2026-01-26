@@ -4,22 +4,22 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import GetAllMovies from "../../../assets/api/apis/getAllMovies";
+import GetTrendMovies from "../../../assets/api/apis/getTrendingMovies";
 
 export default function HeaderSlider({ setBg }) {
   const [popularMovies, setPopularMovies] = useState([]);
 
   useEffect(() => {
     const fetchMovies = async () => {
-      const data = await GetAllMovies();
-      console.log("movies:", data);
+      const data = await GetTrendMovies();
+      console.log(1, data);
       setPopularMovies(data);
     };
 
     fetchMovies();
   }, []);
 
-  if (popularMovies.length === 0) return null; // تا داده‌ها لود بشه
+  if (popularMovies.length === 0) return null;
 
   return (
     <div className="mt-10 flex-1">
@@ -34,18 +34,20 @@ export default function HeaderSlider({ setBg }) {
           1280: { slidesPerView: 4, spaceBetween: 30 },
         }}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
-        loop={popularMovies.length > 4} // loop فقط وقتی تعداد کافی slide هست
+        loop={popularMovies.length > 4}
         navigation
         pagination={{ clickable: true }}
       >
         {popularMovies.map((movie) => (
           <SwiperSlide key={movie.id}>
             <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
               alt={movie.title}
-              className="w-full aspect-square h-[350px] sm:h-auto object-cover rounded-lg"
+              className="w-full sm:h-auto object-cover rounded-lg"
               onMouseOver={() =>
-                setBg(`https://image.tmdb.org/t/p/w500${movie.poster_path}`)
+                setBg(
+                  `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+                )
               }
             />
           </SwiperSlide>

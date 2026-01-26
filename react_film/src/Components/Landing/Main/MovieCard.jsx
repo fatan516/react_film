@@ -6,7 +6,12 @@ export default function MovieCard({ movie }) {
     <div
       className="relative flex items-end aspect-[2/3] my-11 rounded-lg overflow-hidden group "
       style={{
-        backgroundImage: `url(${movie.src})`,
+        backgroundImage: `url(${
+          movie.poster_path
+            ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
+            : "/images/card1.jfif"
+        })`,
+        
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -15,11 +20,11 @@ export default function MovieCard({ movie }) {
       <button className="absolute bottom-1/2 left-1/2 -translate-x-1/2   mx-auto opacity-0 group-hover:opacity-100 bg-red-400 px-8 py-4 rounded-xl cursor-pointer">
         show
       </button>
-      <div className=" w-full p-2 text-white flex justify-between items-center  transition-all duration-300">
-        <h3 className="bg-black/60 px-2 py-1 rounded">{movie.movieName}</h3>
+      <div className=" w-full p-2 text-white flex justify-between items-end  transition-all duration-300">
+        <h3 className="bg-black/60 px-2 py-1 rounded">{movie.original_title}</h3>
 
-        <div className="flex gap-2 items-center">
-          <p>{movie.grade}</p>
+        <div className="flex gap-2 items-end">
+          <p>{movie.vote_average}</p>
           <Star className="fill-yellow-300 text-yellow-300 w-4 h-4" />
         </div>
       </div>
